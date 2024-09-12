@@ -11,11 +11,11 @@
 
     <groupId>org.example</groupId>
     <artifactId>travel-modules-api</artifactId>
+    <packaging>pom</packaging>
 
-    <properties>
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
+    <description>所有微服务子模块的api父模块，管理api所需依赖</description>
+    <modules>
+        <module>travel-users-api</module>
+    </modules>
 
 </project>

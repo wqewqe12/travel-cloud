@@ -10,11 +10,24 @@
     </parent>
 
     <artifactId>travel-users-api</artifactId>
+    <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.travel.lpz</groupId>
+            <artifactId>travel-common-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+<!--        该依赖只在编译和测试时期生效，运行是不生效。
+            阻止依赖的传递性-->
+            <scope>provided</scope>
+        </dependency>
 
-    <properties>
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
+    </dependencies>
+
 
 </project>

@@ -17,7 +17,6 @@ public class AliyunConfig {
      * <b>description</b> :
      * <p>使用AK&amp;SK初始化账号Client</p>
      * @return Client
-     *
      * @throws Exception
      */
     @Bean
