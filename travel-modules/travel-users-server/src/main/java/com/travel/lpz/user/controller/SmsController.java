@@ -3,6 +3,7 @@ package com.travel.lpz.user.controller;
 import com.travel.lpz.core.untils.R;
 import com.travel.lpz.user.service.SmsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,4 +24,9 @@ public class SmsController {
         smsService.SmsSend(phone);
         return R.success();
     }
+//    @GetMapping("getCode")
+//    public R<?> createVerifyCode(String phone){
+//        smsService.SmsSend(phone);
+//        return R.success();
+//    }
 }

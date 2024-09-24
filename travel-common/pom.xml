@@ -17,6 +17,13 @@
         <module>travel-common-core</module>
         <module>travel-common-redis</module>
     </modules>
+    <dependencies>
+        <dependency>
+            <groupId>com.alibaba.fastjson2</groupId>
+            <artifactId>fastjson2</artifactId>
+            <version>2.0.23</version>
+        </dependency>
+    </dependencies>
 
 
 </project>

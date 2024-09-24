@@ -21,6 +21,8 @@ public class R<T> {
     public static final int CODE_NOLOGIN = 401;
     public static final String MSG_NOLOGIN = "请先登录";
     public static final int CODE_ERROR = 500;
+    public static final int CODE_REGISTER_ERROR = 500100; //注册错误
+    public static final int CODE_SMS_ERROR = 500101;
     public static final String MSG_ERROR = "系统异常，请联系管理员";
     public static final int CODE_ERROR_PARAM = 501;  //参数异常
 

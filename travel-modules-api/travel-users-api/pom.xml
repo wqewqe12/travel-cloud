@@ -26,6 +26,16 @@
             阻止依赖的传递性-->
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>com.travel.lpz.redis</groupId>
+            <artifactId>travel-common-redis</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>0.9.1</version>
+        </dependency>
 
     </dependencies>
 
