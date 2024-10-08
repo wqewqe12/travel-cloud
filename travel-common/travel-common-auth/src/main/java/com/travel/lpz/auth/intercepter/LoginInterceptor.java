@@ -1,14 +1,11 @@
-package com.travel.lpz.auth.interceptor;
+package com.travel.lpz.auth.intercepter;
 
-import com.travel.lpz.auth.anno.RequireLogin;
-import com.travel.lpz.auth.config.JwtProperties;
 import com.travel.lpz.core.exception.BusinessException;
 import com.travel.lpz.redis.utils.RedisCache;
+import com.travel.lpz.user.anno.RequireLogin;
+import com.travel.lpz.user.config.JwtProperties;
 import com.travel.lpz.user.redis.key.UserRedisKeyPrefix;
 import com.travel.lpz.user.vo.LoginUser;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jws;
-import io.jsonwebtoken.Jwts;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
@@ -30,11 +27,6 @@ public class LoginInterceptor implements HandlerInterceptor {
     private RedisCache redisCache;
     @Autowired
     private JwtProperties jwtProperties;
-
-    public LoginInterceptor(RedisCache redisCache, JwtProperties jwtProperties) {
-        this.redisCache=redisCache;
-        this.jwtProperties=jwtProperties;
-    }
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         //判断一个接口是否需要拦截

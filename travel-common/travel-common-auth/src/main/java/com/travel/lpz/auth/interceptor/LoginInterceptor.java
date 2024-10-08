@@ -1,4 +1,4 @@
-package com.travel.lpz.auth.interceptor;
+package com.travel.lpz.user.interceptor;
 
 import com.travel.lpz.auth.anno.RequireLogin;
 import com.travel.lpz.auth.config.JwtProperties;
@@ -38,7 +38,7 @@ public class LoginInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         //判断一个接口是否需要拦截
-        //hanlerMethod
+        //handlerMethod
         if (!(handler instanceof HandlerMethod)){
             return true;
         }
