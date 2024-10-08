@@ -1,8 +1,9 @@
-package com.travel.lpz.article.service;
+package com.travel.lpz.article.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.travel.lpz.article.domain.Region;
 import com.travel.lpz.article.mapper.RegionMapper;
+import com.travel.lpz.article.service.RegionService;
 
 /**
  * @author bxc

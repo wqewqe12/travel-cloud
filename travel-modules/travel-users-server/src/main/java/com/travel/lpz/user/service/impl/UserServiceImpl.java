@@ -2,6 +2,7 @@ package com.travel.lpz.user.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.travel.lpz.auth.config.JwtProperties;
 import com.travel.lpz.core.exception.BusinessException;
 import com.travel.lpz.core.untils.Md5Untils;
 import com.travel.lpz.core.untils.R;
@@ -10,6 +11,7 @@ import com.travel.lpz.user.mapper.UserInfoMapper;
 import com.travel.lpz.user.redis.key.UserRedisKeyPrefix;
 import com.travel.lpz.user.service.UserInfoService;
 import com.travel.lpz.user.domain.UserInfo;
+import com.travel.lpz.user.vo.LoginUser;
 import com.travel.lpz.user.vo.RegisterRequest;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -22,11 +24,15 @@ import javax.xml.crypto.Data;
 import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class UserServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> implements UserInfoService {
     @Autowired
     private RedisCache redisCache;
+    @Autowired
+    private JwtProperties jwtProperties;
     @Override
     public UserInfo findByPhone(String phone) {
         QueryWrapper<UserInfo> wrapper = new QueryWrapper<UserInfo>()
@@ -74,22 +80,33 @@ public class UserServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> imple
         if (!encryptPassword.equalsIgnoreCase(userInfo.getPassword())) {
             throw new BusinessException(500402,"用户名或密码错误");
         }
+
+        LoginUser loginUser = new LoginUser();
+        BeanUtils.copyProperties(userInfo,loginUser);
         //4.if(通过)，使用jwt生成token，并往jwt中存入用户信息
+        long now = System.currentTimeMillis();
+        loginUser.setLoginTime(now);
+        long expireTime = now + (jwtProperties.getExpireTime() *LoginUser.MINUTES_MILLISECONDS);
+        loginUser.setExpireTime(expireTime);
+        //uuid作为user存入redis的唯一标识
+        String uuid = UUID.randomUUID().toString().replaceAll("-", "");
+        UserRedisKeyPrefix loginInfoString = UserRedisKeyPrefix.USER_LOGIN_INFO_STRING;
+        loginInfoString.setTimeout((int)expireTime);
+        loginInfoString.setUnit(TimeUnit.MILLISECONDS);
+        redisCache.setCacheObject(loginInfoString,loginUser,uuid);
+
         Map<String, Object> payload = new HashMap<>();
-        payload.put("id",userInfo.getId());
-        payload.put("nickname",userInfo.getNickname());
-        payload.put("loginTime", System.currentTimeMillis());
-        payload.put("expireTime",30);
+        payload.put(LoginUser.LOGIN_USER_REDIS_UUID,uuid);
         String jwtToken = Jwts.builder()
                 .addClaims(payload)
-                .signWith(SignatureAlgorithm.HS256, "travel")
+                .signWith(SignatureAlgorithm.HS256, jwtProperties.getSecret())
                 .compact();
 
         //5.构建map，存入token和用户信息，返回
         payload.clear();
         payload.put("token",jwtToken);
         //返回的user属性需要过滤密码，使用@JSONIGNORE注解
-        payload.put("user",userInfo);
+        payload.put("user",loginUser);
         return payload;
     }
 

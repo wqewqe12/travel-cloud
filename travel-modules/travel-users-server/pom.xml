@@ -12,7 +12,7 @@
     <artifactId>travel-users-server</artifactId>
     <dependencies>
         <dependency>
-            <groupId>org.example</groupId>
+            <groupId>com.travel.lpz</groupId>
             <artifactId>travel-users-api</artifactId>
             <version>1.0.0</version>
         </dependency>
@@ -26,20 +26,8 @@
             <artifactId>mybatis-plus-boot-starter</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
         </dependency>
         <!--hutool-->
         <dependency>
@@ -58,6 +46,11 @@
             <artifactId>dysmsapi20170525</artifactId>
             <version>2.0.23</version>
         </dependency>
+        <dependency>
+            <groupId>com.travel.lpz</groupId>
+            <artifactId>travel-common-auth</artifactId>
+            <version>1.0.0</version>
+        </dependency>
         <!--        <dependency>-->
 <!--            <groupId>com.aliyun</groupId>-->
 <!--            <artifactId>tea-openapi</artifactId>-->
@@ -69,6 +62,4 @@
 <!--            <version>2.0.23</version>-->
 <!--        </dependency>-->
     </dependencies>
-
-
 </project>

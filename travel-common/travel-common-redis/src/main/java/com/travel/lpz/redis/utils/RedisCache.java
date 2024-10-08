@@ -1,5 +1,6 @@
 package com.travel.lpz.redis.utils;
 
+import com.travel.lpz.redis.key.KeyPrefix;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.BoundSetOperations;
 import org.springframework.data.redis.core.HashOperations;
@@ -40,6 +41,13 @@ public class RedisCache {
      * timeout时间
      * timeUnit时间颗粒度
      */
+
+    public <T> void setCacheObject(KeyPrefix prefix ,final T value ,String... suffix){
+        if (prefix.getTimeout() > 0){
+            this.setCacheObject(prefix.fullKey(suffix) ,value, prefix.getTimeout(), prefix.getUnit());
+        }
+        this.setCacheObject(prefix.fullKey(suffix),value);
+    }
     public <T> void setCacheObject (final String key , final T value , final Integer timeout , final TimeUnit timeUnit){
         redisTemplate.opsForValue().set(key,value , timeout ,timeUnit);
     }
@@ -141,14 +149,6 @@ public class RedisCache {
     public Collection<String> keys(final String pattern) {
         return redisTemplate.keys(pattern);
     }
-
-
-
-
-
-
-
-
 
 
 }

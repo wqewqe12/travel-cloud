@@ -1,4 +1,4 @@
-package com.travel.lpz.user.interceptor;
+package com.travel.lpz.auth.interceptor;
 
 import com.travel.lpz.auth.anno.RequireLogin;
 import com.travel.lpz.auth.config.JwtProperties;
@@ -24,16 +24,14 @@ import java.util.concurrent.TimeUnit;
  * @date 2024/9/24 17:34
  * @description TODO
  */
-@Component
+
 public class LoginInterceptor implements HandlerInterceptor {
-    @Autowired
-    private RedisCache redisCache;
-    @Autowired
-    private JwtProperties jwtProperties;
+    private final RedisCache redisCache;
+    private final JwtProperties jwtProperties;
 
     public LoginInterceptor(RedisCache redisCache, JwtProperties jwtProperties) {
-        this.redisCache=redisCache;
-        this.jwtProperties=jwtProperties;
+        this.redisCache = redisCache;
+        this.jwtProperties = jwtProperties;
     }
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {

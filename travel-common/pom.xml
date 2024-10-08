@@ -16,6 +16,7 @@
     <modules>
         <module>travel-common-core</module>
         <module>travel-common-redis</module>
+        <module>travel-common-auth</module>
     </modules>
     <dependencies>
         <dependency>

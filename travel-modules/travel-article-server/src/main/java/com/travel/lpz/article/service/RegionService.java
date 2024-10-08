@@ -1,4 +1,4 @@
-package com.travel.lpz.article.mapper.com.travel.lpz.article.service;
+package com.travel.lpz.article.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.travel.lpz.article.domain.Region;

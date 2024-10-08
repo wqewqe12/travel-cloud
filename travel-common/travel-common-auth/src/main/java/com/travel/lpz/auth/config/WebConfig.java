@@ -2,7 +2,10 @@ package com.travel.lpz.auth.config;
 
 
 import com.travel.lpz.auth.interceptor.LoginInterceptor;
+import com.travel.lpz.redis.utils.RedisCache;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -15,8 +18,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * @description TODO
  */
 @Configuration
-@Import(WebConfig.class)
-@ConditionalOnMissingBean(WebMvcConfigurer.class)
 public class WebConfig implements WebMvcConfigurer {
 
     private final LoginInterceptor loginInterceptor;
@@ -24,12 +25,12 @@ public class WebConfig implements WebMvcConfigurer {
     public WebConfig(LoginInterceptor loginInterceptor) {
         this.loginInterceptor = loginInterceptor;
     }
+
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(loginInterceptor)
-                .excludePathPatterns("/users/login","/users/register")
+                .excludePathPatterns("/users/login", "/users/register")
                 .addPathPatterns("/**");
 
     }
-
 }

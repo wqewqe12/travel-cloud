@@ -16,6 +16,21 @@
     <description>所有微服务子模块的统一依赖管理父项目</description>
     <modules>
         <module>travel-users-server</module>
+        <module>travel-article-server</module>
     </modules>
 
+<dependencies>
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>com.alibaba.cloud</groupId>
+        <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>com.alibaba.cloud</groupId>
+        <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+    </dependency>
+</dependencies>
 </project>
