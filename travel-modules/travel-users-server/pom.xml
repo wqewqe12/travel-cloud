@@ -12,11 +12,6 @@
     <artifactId>travel-users-server</artifactId>
     <dependencies>
         <dependency>
-            <groupId>com.travel.lpz</groupId>
-            <artifactId>travel-users-api</artifactId>
-            <version>1.0.0</version>
-        </dependency>
-        <dependency>
             <groupId>com.travel.lpz.redis</groupId>
             <artifactId>travel-common-redis</artifactId>
             <version>1.0.0</version>

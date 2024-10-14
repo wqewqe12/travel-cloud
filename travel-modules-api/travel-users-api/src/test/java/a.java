@@ -4,7 +4,7 @@ import java.security.MessageDigest;
 import static com.travel.lpz.core.untils.Md5Untils.bytesToHex;
 
 /**
- * @author bxc
+ * @author lpz
  * @title a
  * @date 2024/9/22 20:06
  * @description TODO

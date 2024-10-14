@@ -11,6 +11,5 @@ spring:
         shared-configs:
           - data-id: redis-dev.yaml
           - data-id: jwt-dev.yaml
-
   profiles:
     active: dev

@@ -1,7 +1,7 @@
 package com.travel.lpz.article.domain;
 
 /**
- * @author bxc
+ * @author lpz
  * @title Destination
  * @date 2024/10/8 19:50
  * @description TODO

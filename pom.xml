@@ -13,7 +13,6 @@
         <module>travel-common</module>
         <module>travel-modules-api</module>
         <module>travel-modules</module>
-        <module>travel-mgrsite</module>
     </modules>
 
     <description>父项目，用户管理整个项目的子模块以及相关依赖</description>

@@ -6,7 +6,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * @author bxc
+ * @author lpz
  * @title JwtProperties
  * @date 2024/10/6 14:40
  * @description TODO

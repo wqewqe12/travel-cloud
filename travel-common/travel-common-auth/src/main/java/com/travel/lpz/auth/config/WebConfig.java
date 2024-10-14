@@ -12,7 +12,7 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
- * @author bxc
+ * @author lpz
  * @title WebConfig
  * @date 2024/9/24 17:50
  * @description TODO

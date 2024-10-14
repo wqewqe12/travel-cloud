@@ -9,6 +9,7 @@ import com.travel.lpz.user.vo.LoginUser;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
@@ -19,12 +20,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.concurrent.TimeUnit;
 
 /**
- * @author bxc
+ * @author lpz
  * @title LoginInterceptor
  * @date 2024/9/24 17:34
  * @description TODO
  */
-
+@Slf4j
 public class LoginInterceptor implements HandlerInterceptor {
     private final RedisCache redisCache;
     private final JwtProperties jwtProperties;
@@ -76,7 +77,8 @@ public class LoginInterceptor implements HandlerInterceptor {
                 redisCache.setCacheObject(userLoginKey,loginUser,(int) expireTime, TimeUnit.MILLISECONDS);
             }
         }catch (Exception e){
-            throw new BusinessException("登录信息已失效");
+            log.warn("[登录拦截] jwt token 解析失败", e);
+            throw new BusinessException(401, "用户未认证");
         }
         return true;
     }
