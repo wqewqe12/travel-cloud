@@ -9,7 +9,6 @@
 
     <packaging>pom</packaging>
     <modules>
-        <module>travel-mgrsite</module>
         <module>travel-common</module>
         <module>travel-modules-api</module>
         <module>travel-modules</module>

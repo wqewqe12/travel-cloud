@@ -5,6 +5,6 @@ import com.travel.lpz.article.domain.Strategy;
 import com.travel.lpz.article.domain.StrategyTheme;
 
 
-public interface StrategyMapper extends BaseMapper<StrategyTheme> {
+public interface StrategyThemeMapper extends BaseMapper<StrategyTheme> {
 
 }
