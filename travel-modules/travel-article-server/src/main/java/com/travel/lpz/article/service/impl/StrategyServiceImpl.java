@@ -1,6 +1,7 @@
 package com.travel.lpz.article.service.impl;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.travel.lpz.article.domain.*;
 import com.travel.lpz.article.mapper.StrategyContentMapper;
@@ -98,7 +99,6 @@ public class StrategyServiceImpl extends ServiceImpl<StrategyMapper, Strategy> i
         Strategy strategy = super.getById(id);
         StrategyContent content = strategyContentMapper.selectById(id);
         strategy.setContent(content);
-        strategy.setContent(content);
         return strategy;
     }
 @Transactional(rollbackFor = Exception.class)
@@ -111,5 +111,20 @@ public class StrategyServiceImpl extends ServiceImpl<StrategyMapper, Strategy> i
     public List<StrategyCatalog> findGroupsByDestId(Long destId) {
 
         return getBaseMapper().selectGroupsByDestId(destId);
+    }
+
+    @Override
+    public StrategyContent getContentById(Long id) {
+        return strategyContentMapper.selectById(id);
+    }
+
+    @Override
+    public List<Strategy> findViewnumByDestId(Long destId) {
+        //查询指定目的地，浏览前三的攻略
+        QueryWrapper<Strategy> wrapper = new QueryWrapper<Strategy>()
+                .eq("dest_id", destId)
+                .orderByDesc("viewnum")
+                .last("limit 3");
+        return list(wrapper);
     }
 }

@@ -4,6 +4,7 @@ import cn.hutool.json.JSONObject;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.travel.lpz.article.domain.Strategy;
 import com.travel.lpz.article.domain.StrategyCatalog;
+import com.travel.lpz.article.domain.StrategyContent;
 import com.travel.lpz.article.service.StrategyService;
 import com.travel.lpz.article.untils.QiNiuUntils;
 import com.travel.lpz.core.untils.R;
@@ -34,6 +35,16 @@ public class StrategyController {
     public R<List<StrategyCatalog>> groupByCatalog(Long destId){
         return R.success(strategyService.findGroupsByDestId(destId));
     }
+
+    @GetMapping("/content")
+    public R<StrategyContent> getContentById(Long id){
+        return R.success(strategyService.getContentById(id));
+    }
+    @GetMapping("/viewnumTop3")
+    public R<List<Strategy>> viewnumTop3(Long destId){
+        return R.success(strategyService.findViewnumByDestId(destId));
+    }
+
     @GetMapping("/detail")
     public R<Strategy> getById(Long id) {
         return R.success(strategyService.getById(id));
