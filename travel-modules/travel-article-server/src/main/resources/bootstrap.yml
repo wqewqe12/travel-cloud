@@ -13,3 +13,10 @@ spring:
           - data-id: jwt-dev.yaml
   profiles:
     active: dev
+qiniuyun:
+  upload:
+    AccessKey: xxx
+    SecretKey: xxx
+    BucketName: xxx
+    Mkdir: xxx
+    url: xxx

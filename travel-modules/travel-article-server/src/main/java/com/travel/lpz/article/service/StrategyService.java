@@ -2,6 +2,9 @@ package com.travel.lpz.article.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.travel.lpz.article.domain.Strategy;
+import com.travel.lpz.article.domain.StrategyCatalog;
+
+import java.util.List;
 
 
 /**
@@ -13,4 +16,5 @@ import com.travel.lpz.article.domain.Strategy;
 public interface StrategyService extends IService<Strategy> {
 
 
+    List<StrategyCatalog> findGroupsByDestId(Long destId);
 }

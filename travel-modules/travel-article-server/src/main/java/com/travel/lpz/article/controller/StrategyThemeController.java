@@ -33,6 +33,7 @@ public class StrategyThemeController {
     public R<StrategyTheme> getById(Long id) {
         return R.success(strategyThemeService.getById(id));
     }
+
     @GetMapping("/list")
     public R<List<StrategyTheme>> listAll() {
         return R.success(strategyThemeService.list());

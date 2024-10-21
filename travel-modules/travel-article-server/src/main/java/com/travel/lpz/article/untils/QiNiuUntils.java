@@ -1,6 +1,7 @@
 package com.travel.lpz.article.untils;
 
 
+import cn.hutool.core.date.DateTime;
 import com.qiniu.http.Response;
 import com.qiniu.storage.Region;
 import com.qiniu.storage.UploadManager;
@@ -9,21 +10,20 @@ import com.qiniu.util.Base64;
 import com.qiniu.util.UrlSafeBase64;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;
-
 import org.springframework.boot.context.properties.ConfigurationProperties;
-
 import org.springframework.util.Base64Utils;
-import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 import com.qiniu.storage.Configuration;
 
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.util.Date;
+import java.io.*;
 import java.util.UUID;
+import java.io.File;
+import java.io.FileInputStream;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import com.qiniu.util.*;
+import okhttp3.*;
 
 
 @org.springframework.context.annotation.Configuration
@@ -72,6 +72,34 @@ public class QiNiuUntils {
                 return domain +"/"+ fileKey;
         }
 
+        public String getUpToken() {
+                Auth auth = Auth.create(accessKey, secretKey);
+                return auth.uploadToken(bucket, null, 3600, new StringMap().put("insertOnly", 1));
+        }
+        public String uploadBy64(MultipartFile file) throws Exception {
+                if (file.isEmpty()) {
+                        throw new RuntimeException("文件是空的");
+                }
+                //这里将原本的图片转换为base64字符串
+                byte[] src = file.getBytes();
+                String file64 = Base64.encodeToString(src, 0);
+                Integer length = src.length;
+                String dateStr = DateTime.now().toString();
+                // 将当前日期拼接在文件名称中
+                String fileName = dateStr + "/" + UUID.randomUUID().toString().replace("-", "") + ".jpg";
+                String url = domain + length + "/key/"+ UrlSafeBase64.encodeToString(fileName);
+                //非华东空间需要根据注意事项 : 修改上传域名
+                RequestBody requestBody = RequestBody.create(null, file64);
+                Request request = new Request.Builder()
+                        .url(url)
+                        .addHeader("Content-Type", "application/octet-stream")
+                        .addHeader("Authorization", "UpToken " + getUpToken())
+                        .post(requestBody).build();
+                OkHttpClient client = new OkHttpClient();
+                okhttp3.Response response = client.newCall(request).execute();
+                // 上传成功返回图片地址
+                return response.isSuccessful()?("http://" + bucket + "/" + fileName):"Up Img Failed";
+        }
 
 
 

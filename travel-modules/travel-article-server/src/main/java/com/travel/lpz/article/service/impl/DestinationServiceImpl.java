@@ -9,14 +9,13 @@ import com.travel.lpz.article.mapper.DestinationMapper;
 import com.travel.lpz.article.qo.DestinationQuery;
 import com.travel.lpz.article.service.DestinationService;
 import com.travel.lpz.article.service.RegionService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ThreadPoolExecutor;
 
 /**
  * @author lpz
@@ -28,6 +27,7 @@ import java.util.List;
 public class DestinationServiceImpl extends ServiceImpl<DestinationMapper,Destination> implements DestinationService{
 
     private final RegionService regionService;
+
 
     public DestinationServiceImpl(RegionService regionService) {
         this.regionService = regionService;
@@ -80,23 +80,23 @@ public class DestinationServiceImpl extends ServiceImpl<DestinationMapper,Destin
     @Override
     public List<Destination> findDestsByRid(Long rid) {
         List<Destination> destinations = new ArrayList<>();
-        QueryWrapper<Destination> wrapper = new QueryWrapper<Destination>().eq("parent_id",1);
         if (rid < 0){
-             destinations = list(wrapper);
+             destinations =  this.getBaseMapper().selectHotListByRid(rid, Collections.emptyList());
         }
         else {
             Region region = regionService.getById(rid);
             if (region == null) {
                 return Collections.emptyList();
             }
-           destinations = super.listByIds(region.parseRefIds());
+           destinations = this.getBaseMapper().selectHotListByRid(rid, region.parseRefIds());
         }
         //查询目的地下的下一级目的地
+        // 对每一个子目的地集合做裁剪, 只保留10条数据
         for (Destination destination : destinations) {
-            //删除warrper条件
-            wrapper.clear();
-            List<Destination>  children = list(wrapper.eq("parent_id",destination.getId()).last("limit 10"));
-            destination.setChildren(children);
+            List<Destination> children = destination.getChildren();
+            if (children != null && children.size() > 10) {
+                destination.setChildren(children.subList(0, 10));
+            }
         }
         return destinations;
     }

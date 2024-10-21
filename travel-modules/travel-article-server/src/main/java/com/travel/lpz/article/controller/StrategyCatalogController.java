@@ -5,48 +5,54 @@ import com.travel.lpz.article.domain.Destination;
 import com.travel.lpz.article.domain.StrategyCatalog;
 import com.travel.lpz.article.service.DestinationService;
 import com.travel.lpz.article.service.StrategyCatalogService;
+import com.travel.lpz.article.vo.StrategyCatalogGroup;
 import com.travel.lpz.core.untils.R;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 @RestController
-@RequestMapping("/strategies/themes")
+@RequestMapping("/strategies/catalogs")
 public class StrategyCatalogController {
-    private final StrategyCatalogService StrategyCatalogService;
+    private final StrategyCatalogService strategyCatalogService;
     private final DestinationService destinationService;
 
-    public StrategyCatalogController(StrategyCatalogService StrategyCatalogService, DestinationService destinationService) {
-        this.StrategyCatalogService = StrategyCatalogService;
+    public StrategyCatalogController(StrategyCatalogService strategyCatalogService, DestinationService destinationService) {
+        this.strategyCatalogService = strategyCatalogService;
         this.destinationService = destinationService;
     }
 
     @GetMapping("/query")
     public R<Page<StrategyCatalog>> pageList(Page<StrategyCatalog> page) {
-        return R.success(StrategyCatalogService.page(page));
+        return R.success(strategyCatalogService.page(page));
+    }
+    @GetMapping("/groups")
+    public R<List<StrategyCatalogGroup>> groupList() {
+        return R.success(strategyCatalogService.findGroupList());
     }
 
     @GetMapping("/detail")
     public R<StrategyCatalog> getById(Long id) {
-        return R.success(StrategyCatalogService.getById(id));
+        return R.success(strategyCatalogService.getById(id));
     }
 
     @PostMapping("/save")
     public R<?> save(StrategyCatalog dest) {
-        StrategyCatalogService.save(dest);
+        strategyCatalogService.save(dest);
         return R.success();
     }
+
     @PostMapping("/update")
     public R<?> updateById(StrategyCatalog dest) {
-        String name = destinationService.getById(dest.getDestId()).getName();
-        dest.setDestName(name);
-        StrategyCatalogService.save(dest);
+        strategyCatalogService.updateById(dest);
         return R.success();
     }
 
     @PostMapping("/delete/{id}")
     public R<?> deleteById(@PathVariable Long id) {
-        StrategyCatalogService.removeById(id);
+        strategyCatalogService.removeById(id);
         return R.success();
     }
 
