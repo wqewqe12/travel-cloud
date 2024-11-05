@@ -1,6 +1,7 @@
 package com.travel.lpz.user.controller;
 
 import com.travel.lpz.core.untils.R;
+import com.travel.lpz.user.dto.UserInfoDTO;
 import com.travel.lpz.user.service.UserInfoService;
 import com.travel.lpz.user.domain.UserInfo;
 import com.travel.lpz.user.vo.RegisterRequest;
@@ -41,5 +42,10 @@ public class UseInfoController {
     public R<Map<String, Object>> login(String username , String password){
         Map<String, Object>  map = userInfoService.login(username,password);
         return R.success(map);
+    }
+
+    @GetMapping("/getById")
+    public R<UserInfoDTO> getById(Long id){
+        return R.success(userInfoService.getDtoById(id));
     }
 }

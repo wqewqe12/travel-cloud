@@ -17,6 +17,7 @@
     <modules>
         <module>travel-users-api</module>
         <module>travel-article-api</module>
+        <module>travel-comment-api</module>
     </modules>
 <dependencies>
     <dependency>

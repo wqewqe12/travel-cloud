@@ -36,6 +36,7 @@ public class StrategyThemeController {
 
     @GetMapping("/list")
     public R<List<StrategyTheme>> listAll() {
+
         return R.success(strategyThemeService.list());
     }
     @PostMapping("/save")

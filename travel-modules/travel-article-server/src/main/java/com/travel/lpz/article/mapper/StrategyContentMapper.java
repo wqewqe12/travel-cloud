@@ -6,4 +6,5 @@ import com.travel.lpz.article.domain.StrategyContent;
 
 public interface StrategyContentMapper extends BaseMapper<StrategyContent> {
 
+
 }

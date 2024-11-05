@@ -9,7 +9,7 @@
         <version>1.0.0</version>
     </parent>
 
-    <groupId>org.example</groupId>
+    <groupId>com.travel.lpz</groupId>
     <artifactId>travel-modules</artifactId>
     <packaging>pom</packaging>
 
@@ -17,6 +17,8 @@
     <modules>
         <module>travel-users-server</module>
         <module>travel-article-server</module>
+        <module>travel-data-server</module>
+        <module>travel-comment-server</module>
     </modules>
 
 <dependencies>
@@ -31,6 +33,10 @@
     <dependency>
         <groupId>com.alibaba.cloud</groupId>
         <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-starter-openfeign</artifactId>
     </dependency>
 </dependencies>
 </project>

@@ -2,6 +2,7 @@ package com.travel.lpz.auth.interceptor;
 
 import com.travel.lpz.auth.anno.RequireLogin;
 import com.travel.lpz.auth.config.JwtProperties;
+import com.travel.lpz.auth.untils.AuthenticationUntils;
 import com.travel.lpz.core.exception.BusinessException;
 import com.travel.lpz.redis.utils.RedisCache;
 import com.travel.lpz.user.redis.key.UserRedisKeyPrefix;
@@ -14,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,6 +29,7 @@ import java.util.concurrent.TimeUnit;
  */
 @Slf4j
 public class LoginInterceptor implements HandlerInterceptor {
+
     private final RedisCache redisCache;
     private final JwtProperties jwtProperties;
 
@@ -82,4 +85,12 @@ public class LoginInterceptor implements HandlerInterceptor {
         }
         return true;
     }
+
+    @Override
+    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
+        //该拦截，在请求执行完成以后准备响应之前执行
+        //线程即将完成，先将当前线程空间存储的数据清除掉
+        AuthenticationUntils.removeUser();
+    }
 }
+

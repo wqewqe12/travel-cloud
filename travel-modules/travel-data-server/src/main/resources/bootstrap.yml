@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: data-service
+  cloud:
+    nacos:
+      server-addr: 127.0.0.1:8848
+      config:
+        file-extension: yaml
+        namespace: f8ed594f-a579-431c-8f88-2302685a8a22
+  profiles:
+    active: dev
+logging:
+  level:
+    com.travel.lpz.data.mapper: debug

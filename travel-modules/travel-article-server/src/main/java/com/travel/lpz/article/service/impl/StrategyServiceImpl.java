@@ -2,18 +2,22 @@ package com.travel.lpz.article.service.impl;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.travel.lpz.article.domain.*;
 import com.travel.lpz.article.mapper.StrategyContentMapper;
 import com.travel.lpz.article.mapper.StrategyMapper;
+import com.travel.lpz.article.qo.StrategyQuery;
 import com.travel.lpz.article.service.DestinationService;
 import com.travel.lpz.article.service.StrategyCatalogService;
 import com.travel.lpz.article.service.StrategyService;
 import com.travel.lpz.article.service.StrategyThemeService;
 import com.travel.lpz.article.untils.QiNiuUntils;
+import com.travel.lpz.article.vo.StrategyCondition;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -126,5 +130,31 @@ public class StrategyServiceImpl extends ServiceImpl<StrategyMapper, Strategy> i
                 .orderByDesc("viewnum")
                 .last("limit 3");
         return list(wrapper);
+    }
+
+    @Override
+    public Page<Strategy> pageList(StrategyQuery qo) {
+        if ((qo.getType() != null && qo.getType() != -1) && (qo.getRefid() != null && qo.getRefid() != -1)) {
+            if (qo.getType() == 3) {
+                qo.setThemeId(qo.getRefid());
+            }else {
+                qo.setDestId(qo.getRefid());
+            }
+        }
+        QueryWrapper<Strategy> wrapper = new QueryWrapper<Strategy>()
+                .eq(qo.getDestId() != null, "dest_id", qo.getDestId())
+                .eq(qo.getThemeId() != null, "theme_id", qo.getThemeId())
+                .orderByDesc(!StringUtils.isEmpty(qo.getOrderBy()),qo.getOrderBy());
+        return super.page(new Page<>(qo.getCurrent(),qo.getSize()),wrapper);
+    }
+
+    @Override
+    public List<StrategyCondition> findDestCondition(int abroad) {
+        return getBaseMapper().selectDestCondition(abroad);
+    }
+
+    @Override
+    public List<StrategyCondition> findThemeCondition() {
+        return getBaseMapper().selectThemeCondition();
     }
 }

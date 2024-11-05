@@ -2,6 +2,7 @@ package com.travel.lpz.auth.config;
 
 //import com.travel.lpz.auth.interceptor.LoginInterceptor;
 import com.travel.lpz.auth.interceptor.LoginInterceptor;
+import com.travel.lpz.auth.untils.SpringContextUtil;
 import com.travel.lpz.redis.utils.RedisCache;
 
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -23,4 +24,8 @@ public class TravelJwtAutoConfiguration {
         return new LoginInterceptor(redisCache, jwtProperties);
     }
 
+    @Bean
+    public SpringContextUtil springContextUtil() {
+        return new SpringContextUtil();
+    }
 }

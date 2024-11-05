@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: comment-service
+  cloud:
+    nacos:
+      server-addr: 127.0.0.1:8848
+      config:
+        file-extension: yaml
+        namespace: f8ed594f-a579-431c-8f88-2302685a8a22
+      # 额外拉去注册中心的配置文件
+        shared-configs:
+          - data-id: redis-dev.yaml
+          - data-id: jwt-dev.yaml
+  # 配置文件的环境
+  profiles:
+    # 使用哪一种环境
+    active: dev # 环境标识
+# 配置MongoTemplate的执行日志
+logging:
+  level:
+    org.springframework.data.mongodb.core: debug

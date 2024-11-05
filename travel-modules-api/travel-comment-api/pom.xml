@@ -9,13 +9,27 @@
         <version>1.0.0</version>
     </parent>
 
-    <groupId>org.example</groupId>
+    <groupId>com.travel.lpz</groupId>
     <artifactId>travel-comment-api</artifactId>
 
-    <properties>
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
+    <dependencies>
+        <dependency>
+            <groupId>com.travel.lpz</groupId>
+            <artifactId>travel-users-api</artifactId>
+            <version>1.0.0</version>
+<!--            不需要user-api里依赖传递的mp-->
+            <exclusions>
+                <exclusion>
+                    <groupId>com.baomidou</groupId>
+                    <artifactId>mybatis-plus-boot-starter</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+            <!--spring boot data mongodb-->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-data-mongodb</artifactId>
+            </dependency>
+    </dependencies>
 
 </project>

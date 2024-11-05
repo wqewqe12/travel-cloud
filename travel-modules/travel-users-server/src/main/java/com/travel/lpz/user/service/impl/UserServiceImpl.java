@@ -7,6 +7,7 @@ import com.travel.lpz.core.exception.BusinessException;
 import com.travel.lpz.core.untils.Md5Untils;
 import com.travel.lpz.core.untils.R;
 import com.travel.lpz.redis.utils.RedisCache;
+import com.travel.lpz.user.dto.UserInfoDTO;
 import com.travel.lpz.user.mapper.UserInfoMapper;
 import com.travel.lpz.user.redis.key.UserRedisKeyPrefix;
 import com.travel.lpz.user.service.UserInfoService;
@@ -110,6 +111,8 @@ public class UserServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> imple
         return payload;
     }
 
+
+
     private UserInfo buidlerUserInfo(RegisterRequest req) {
         UserInfo userInfo = new UserInfo();
         BeanUtils.copyProperties(req,userInfo);
@@ -121,5 +124,16 @@ public class UserServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> imple
         userInfo.setState(UserInfo.STATE_NORMAL);
 
         return userInfo;
+    }
+
+    @Override
+    public UserInfoDTO getDtoById(Long id) {
+        UserInfo userInfo = super.getById(id);
+        if (userInfo != null) {
+            UserInfoDTO dto = new UserInfoDTO();
+            BeanUtils.copyProperties(userInfo,dto);
+            return dto;
+        }
+        return null;
     }
 }

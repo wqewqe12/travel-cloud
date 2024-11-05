@@ -1,6 +1,5 @@
-package com.travel.lpz.comment.mapper;
+package com.travel.lpz.comment.repository;
 
-import com.travel.lpz.comment.domain.StrategyComment;
 import com.travel.lpz.comment.domain.TravelComment;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
@@ -11,5 +10,5 @@ import org.springframework.data.mongodb.repository.MongoRepository;
  * @description TODO
  */
 public interface TravelCommentRepository extends MongoRepository<TravelComment,String> {
-    public TravelComment findByStrategyId(String strategyId);
+
 }

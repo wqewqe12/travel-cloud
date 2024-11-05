@@ -1,4 +1,4 @@
-package com.travel.lpz.comment.mapper;
+package com.travel.lpz.comment.repository;
 
 import com.travel.lpz.comment.domain.StrategyComment;
 import org.springframework.data.mongodb.repository.MongoRepository;
